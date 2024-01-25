@@ -83,33 +83,22 @@ function MinimizedIcon({
     damping: 12,
   });
 
-  const handleChangeAppSate = (id: number) => {
-    if (iconState.state === "closed") {
-      setComputerState((prev) =>
-        prev.map((state) =>
-          state.id === id ? { ...state, state: "opening" } : state,
-        ),
-      );
-      setTimeout(
-        () =>
-          setComputerState((prev) =>
-            prev.map((state) =>
-              state.id === id ? { ...state, state: "open" } : state,
-            ),
-          ),
-        2550,
-      );
-    }
+  const handleOpenApp = () => {
+    setComputerState((prev) =>
+      prev.map((state) =>
+        state.id === iconState.id ? { ...state, state: "open" } : state,
+      ),
+    );
   };
 
   return (
     <motion.button
+      layoutId={`window-${iconState.id}`}
       ref={ref}
       type="button"
-      onClick={() => handleChangeAppSate(iconState.id)}
+      onClick={handleOpenApp}
       style={{ width }}
-      data-opening={iconState.state === "opening" ? true : null}
-      className="data-[opening]:animate-bounceUp relative aspect-square w-10 rounded-[12px] bg-gray-400"
+      className="aspect-square w-10 rounded-[8px] bg-gray-400"
     />
   );
 }
@@ -138,18 +127,18 @@ function AppIcon({
     damping: 12,
   });
 
-  const handleChangeAppSate = (id: number) => {
+  const handleChangeAppSate = () => {
     if (iconState.state === "closed") {
       setComputerState((prev) =>
         prev.map((state) =>
-          state.id === id ? { ...state, state: "opening" } : state,
+          state.id === iconState.id ? { ...state, state: "opening" } : state,
         ),
       );
       setTimeout(
         () =>
           setComputerState((prev) =>
             prev.map((state) =>
-              state.id === id ? { ...state, state: "open" } : state,
+              state.id === iconState.id ? { ...state, state: "open" } : state,
             ),
           ),
         2550,
@@ -161,10 +150,10 @@ function AppIcon({
     <motion.button
       ref={ref}
       type="button"
-      onClick={() => handleChangeAppSate(iconState.id)}
+      onClick={handleChangeAppSate}
       style={{ width }}
       data-opening={iconState.state === "opening" ? true : null}
-      className="data-[opening]:animate-bounceUp relative aspect-square w-10 rounded-[12px] bg-gray-400"
+      className="data-[opening]:animate-bounceUp relative aspect-square w-10 rounded-[8px] bg-gray-400"
     >
       <div
         data-open={
