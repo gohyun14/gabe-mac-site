@@ -3,12 +3,13 @@
 import { useState } from "react";
 import Dock from "~/components/Dock";
 import { type appState } from "lib/types";
+import Windows from "~/components/Windows";
 
 export default function HomePage() {
   const [computerState, setComputerState] = useState<appState[]>([
     {
       id: 0,
-      state: "closed",
+      state: "open",
     },
     {
       id: 1,
@@ -16,12 +17,16 @@ export default function HomePage() {
     },
     {
       id: 2,
-      state: "minimized",
+      state: "closed",
     },
   ]);
 
   return (
     <div id="app-space" className="relative h-[100vh] w-[100vw]">
+      <Windows
+        computerState={computerState}
+        setComputerState={setComputerState}
+      />
       <Dock computerState={computerState} setComputerState={setComputerState} />
     </div>
   );
